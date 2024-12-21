@@ -7,20 +7,28 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "exam_questions")
+@Table(name = "attempted_questions")
 @Data
-public class ExamQuestion {
+public class AttemptedQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "exam_id", nullable = false)
+    @JoinColumn(name = "exam_attempt_id", nullable = false)
     @JsonIgnore
-    private Exam exam;
+    private ExamAttempt examAttempt;
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
+
+    @Column(nullable = true)
+    private String selectedAnswer;
+
+    @Column(nullable = false)
+    private boolean isCorrect;
+    
+    
 }
