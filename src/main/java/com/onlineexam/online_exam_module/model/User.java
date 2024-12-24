@@ -1,6 +1,5 @@
 package com.onlineexam.online_exam_module.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,7 +22,7 @@ public class User {
     @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(50)")
     private String userId;
 
-    @JsonIgnore // Exclude from serialization
+    
     @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String password;
 
