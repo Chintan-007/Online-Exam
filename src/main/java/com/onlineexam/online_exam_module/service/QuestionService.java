@@ -14,11 +14,42 @@ public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    public Question saveQuestion(Question question) {
-        return questionRepository.save(question);
+    
+    //Add a new question
+    public Question addQuestion(Question question) {
+    	return questionRepository.save(question);
     }
-
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
+    
+    
+    //Get all question
+    public List<Question> getAllQuestions(){
+    	return questionRepository.findAll();
     }
+    
+    
+    //Get a question by id
+    public Question getQuestionById(int id) {
+    	return questionRepository.findById(id)
+    			.orElseThrow(()-> new IllegalArgumentException("Question not found with ID: "+id));
+    }
+    
+    
+    //Update a question
+    public Question updateQuestion(int id, Question updatedQuestion) {
+    	Question existingQuestion = getQuestionById(id);
+    	existingQuestion.setQuestionText(updatedQuestion.getQuestionText());
+    	existingQuestion.setCategory(updatedQuestion.getCategory());
+    	existingQuestion.setCorrectAnswer(updatedQuestion.getCorrectAnswer());
+    	existingQuestion.setOptions(updatedQuestion.getOptions());
+    	
+    	return questionRepository.save(existingQuestion);
+    }
+    
+    
+    //Delete a question
+    public void deleteQuestion(int id) {
+    	Question question = getQuestionById(id);
+    	questionRepository.delete(question);
+    }
+    
 }

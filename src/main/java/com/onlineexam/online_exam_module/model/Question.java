@@ -15,12 +15,18 @@ public class Question {
     @Column(nullable = false, columnDefinition = "NVARCHAR(MAX)")
     private String questionText;
 
+    
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String category; // Logical, Technical, Programming
+    private Category category; // Logical, Technical, Programming
 
     @Column(nullable = false, columnDefinition = "NVARCHAR(MAX)")
     private String options; // JSON-like structure: ["Option1", "Option2", ...]
 
     @Column(nullable = false)
     private String correctAnswer;
+    
+    public enum Category {
+        LOGICAL, TECHNICAL, PROGRAMMING
+    }
 }
