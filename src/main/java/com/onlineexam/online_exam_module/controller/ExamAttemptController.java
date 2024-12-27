@@ -47,4 +47,12 @@ public class ExamAttemptController {
     public ExamAttempt finalize(@PathVariable(name = "examAttemptId") int examAttemptId) {
     	return examAttemptService.finalizeExamAttempt(examAttemptId);
     }
+    
+    
+    //Get Result of exam
+    @GetMapping("/{examAttemptId}/result")
+    public ExamAttempt getResult(@PathVariable(name = "examAttemptId") int examAttemptId) {
+        return examAttemptService.getExamAttemptById(examAttemptId);
+    }
+
 }

@@ -28,7 +28,7 @@ public class ExamService {
     private ExamQuestionRepository examQuestionRepository;
     
 
-    public Exam createExam(String name, String createdBy, int duration, int logicalCount, int technicalCount, int programmingCount) {
+    public Exam createExam(String name, String createdBy, int duration, int logicalCount, int technicalCount, int programmingCount, double passingPercentage) {
     	
     	
     	// Fetch questions by category
@@ -58,6 +58,7 @@ public class ExamService {
     	exam.setCreatedBy(createdBy);
     	exam.setDuration(duration);
     	exam.setCreatedDate(LocalDateTime.now());
+    	exam.setPassingPercentage(passingPercentage);
     	exam = examRepository.save(exam);
     
     	

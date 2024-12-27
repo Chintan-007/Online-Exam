@@ -30,6 +30,9 @@ public class Exam {
 
     @Column(nullable = false)
     private int duration; // Duration in minutes
+    
+    @Column(nullable = false)
+    private double passingPercentage;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     @JsonManagedReference // Prevents infinite recursion

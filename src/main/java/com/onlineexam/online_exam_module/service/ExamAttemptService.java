@@ -58,9 +58,8 @@ public class ExamAttemptService {
 		Optional<ExamAttempt> examAttemptOpt = examAttemptRepository.findById(examAttemptId);
 		
 		if(examAttemptOpt.isPresent()) {
+			
 			ExamAttempt examAttempt = examAttemptOpt.get();
-			
-			
 			if(examAttempt.isFinalized()) {
 				throw new IllegalArgumentException("Exam has already finalised");
 			}
@@ -74,6 +73,21 @@ public class ExamAttemptService {
 				throw new IllegalArgumentException("Not all questions have been attempted");
 			}
 			
+			
+			// Calculate total score
+	        int totalScore = attemptedQuestionRepository.findByExamAttempt(examAttempt)
+	                .stream()
+	                .filter(AttemptedQuestion::isCorrect)
+	                .mapToInt(q -> 1) // Each correct answer gives 1 point
+	                .sum();
+	        examAttempt.setScore(totalScore);
+
+	        // Determine pass/fail based on passingPercentage
+	        double passingPercentage = examAttempt.getExam().getPassingPercentage();
+	        boolean passed = (totalScore >= examAttempt.getExam().getExamQuestions().size() * (passingPercentage / 100));
+	        examAttempt.setPassed(passed);
+	        
+	        
 			//Finalize the exam attempt
 			examAttempt.setFinalized(true);
 			return examAttemptRepository.save(examAttempt);

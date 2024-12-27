@@ -22,8 +22,9 @@ public class ExamController {
             @RequestParam("duration") int duration,
             @RequestParam("logicalCount") int logicalCount,
             @RequestParam("technicalCount") int technicalCount,
-            @RequestParam("programmingCount") int programmingCount) {
-        return examService.createExam(name, createdBy, duration, logicalCount,technicalCount,programmingCount);
+            @RequestParam("programmingCount") int programmingCount,
+            @RequestParam("passingPercentage") double passingPercentage) {
+        return examService.createExam(name, createdBy, duration, logicalCount,technicalCount,programmingCount,passingPercentage);
     }
 
     

@@ -31,12 +31,15 @@ public class ExamAttempt {
 
     @Column(nullable = false)
     private int score;
+    
+    @Column(nullable = false)
+    private boolean isFinalized = false; // For submitting the exam, Default is not finalized
+    
+    @Column(nullable = false)
+    private boolean passed;
 
     @OneToMany(mappedBy = "examAttempt", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<AttemptedQuestion> attemptedQuestions;
-    
-    @Column(nullable = false)
-    private boolean isFinalized = false; // For submitting the exam, Default is not finalized
 
 }
