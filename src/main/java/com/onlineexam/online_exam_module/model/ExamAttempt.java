@@ -35,4 +35,8 @@ public class ExamAttempt {
     @OneToMany(mappedBy = "examAttempt", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<AttemptedQuestion> attemptedQuestions;
+    
+    @Column(nullable = false)
+    private boolean isFinalized = false; // For submitting the exam, Default is not finalized
+
 }

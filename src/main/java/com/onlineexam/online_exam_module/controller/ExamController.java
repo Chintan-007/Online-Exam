@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/exams")
@@ -14,16 +15,26 @@ public class ExamController {
     @Autowired
     private ExamService examService;
 
-    @PostMapping
+    @PostMapping("/create")
     public Exam createExam(
             @RequestParam("name") String name,
             @RequestParam("createdBy") String createdBy,
-            @RequestParam("duration") int duration) {
-        return examService.createExam(name, createdBy, duration);
+            @RequestParam("duration") int duration,
+            @RequestParam("logicalCount") int logicalCount,
+            @RequestParam("technicalCount") int technicalCount,
+            @RequestParam("programmingCount") int programmingCount) {
+        return examService.createExam(name, createdBy, duration, logicalCount,technicalCount,programmingCount);
     }
 
+    
     @GetMapping
     public List<Exam> getAllExams() {
         return examService.getAllExams();
     }
+
+    @GetMapping("/{id}") 
+    public Optional<Exam> getExamById(@PathVariable(name="id") int id) {
+    	return examService.getExamById(id);
+    }
+    
 }

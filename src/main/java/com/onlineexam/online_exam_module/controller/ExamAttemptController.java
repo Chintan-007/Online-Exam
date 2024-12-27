@@ -40,4 +40,11 @@ public class ExamAttemptController {
             @RequestParam(name = "selectedAnswer") String selectedAnswer) {
         return attemptedQuestionService.saveAttemptedQuestion(examAttemptId, questionId, selectedAnswer);
     }
+    
+    
+    //Finalize/Submit the exam
+    @PostMapping("/{examAttemptId}/finalize")
+    public ExamAttempt finalize(@PathVariable(name = "examAttemptId") int examAttemptId) {
+    	return examAttemptService.finalizeExamAttempt(examAttemptId);
+    }
 }
