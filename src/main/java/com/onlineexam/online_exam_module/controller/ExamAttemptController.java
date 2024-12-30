@@ -1,10 +1,15 @@
 package com.onlineexam.online_exam_module.controller;
 
 
+import com.onlineexam.online_exam_module.dto.ExamResultDTO;
+import com.onlineexam.online_exam_module.dto.ExamSummaryDTO;
 import com.onlineexam.online_exam_module.model.AttemptedQuestion;
 import com.onlineexam.online_exam_module.model.ExamAttempt;
 import com.onlineexam.online_exam_module.service.AttemptedQuestionService;
 import com.onlineexam.online_exam_module.service.ExamAttemptService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +59,21 @@ public class ExamAttemptController {
     public ExamAttempt getResult(@PathVariable(name = "examAttemptId") int examAttemptId) {
         return examAttemptService.getExamAttemptById(examAttemptId);
     }
+    
+    
+    //Get the summary of all the exams
+    @GetMapping("/summary")
+    public List<ExamSummaryDTO> getExamSummaries() {
+        return examAttemptService.getExamSummaries();
+    }
+
+    
+    //Get the summary of a specific exam
+    @GetMapping("/exam/{examId}")
+    public List<ExamResultDTO> getExamResults(@PathVariable(name = "examId") int examId) {
+        return examAttemptService.getExamResultsByExamId(examId);
+    }
+
+    
 
 }

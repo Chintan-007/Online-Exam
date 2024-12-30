@@ -1,6 +1,8 @@
 package com.onlineexam.online_exam_module.service;
 
 
+import com.onlineexam.online_exam_module.dto.ExamResultDTO;
+import com.onlineexam.online_exam_module.dto.ExamSummaryDTO;
 import com.onlineexam.online_exam_module.model.AttemptedQuestion;
 import com.onlineexam.online_exam_module.model.Exam;
 import com.onlineexam.online_exam_module.model.ExamAttempt;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,4 +99,55 @@ public class ExamAttemptService {
 		}
 		return null;
 	}
+
+	public List<ExamSummaryDTO> getExamSummaries() {
+		
+	    List<Exam> exams = examRepository.findAll(); //Fetches all exams.
+
+	    List<ExamSummaryDTO> summaries = new ArrayList<>();
+	    
+	    for (Exam exam : exams) {
+	        List<ExamAttempt> attempts = examAttemptRepository.findByExam(exam); //Fetch associated attempts.
+
+	        if (!attempts.isEmpty()) { //Calculate total attempts, average score, and passing percentage.
+	            double totalScore = attempts.stream().mapToDouble(ExamAttempt::getScore).sum();
+	            long totalAttempts = attempts.size();
+	            double averageScore = totalScore / totalAttempts;
+
+	            long passedCount = attempts.stream().filter(ExamAttempt::isPassed).count();
+	            double passingPercentage = ((double) passedCount / totalAttempts) * 100;
+
+	            ExamSummaryDTO summary = new ExamSummaryDTO();
+	            summary.setExamName(exam.getName());
+	            summary.setTotalAttempts((int) totalAttempts);
+	            summary.setAverageScore(averageScore);
+	            summary.setPassingPercentage(passingPercentage);
+
+	            summaries.add(summary);
+	        }
+	    }
+	    return summaries;
+	}
+
+
+	public List<ExamResultDTO> getExamResultsByExamId(int examId) {
+		
+	    Optional<Exam> optionalExam = examRepository.findById(examId);
+	    if (optionalExam.isEmpty()) {//Validates if the exam exists.
+	        throw new IllegalArgumentException("Exam with ID " + examId + " does not exist.");
+	    }
+	    
+	    List<ExamAttempt> attempts = examAttemptRepository.findByExam(optionalExam.get());//Fetches all attempts for the given exam.
+
+	    List<ExamResultDTO> results = new ArrayList<>();
+	    for (ExamAttempt attempt : attempts) { //Extracts and formats student-specific details into ExamResultDTO.
+	        ExamResultDTO result = new ExamResultDTO();
+	        result.setStudentName(attempt.getUser().getName());
+	        result.setScore(attempt.getScore());
+	        result.setPassed(attempt.isPassed());
+	        results.add(result);
+	    }
+	    return results;
+	}
+
 }
