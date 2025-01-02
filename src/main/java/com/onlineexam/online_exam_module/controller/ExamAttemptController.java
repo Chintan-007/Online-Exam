@@ -37,7 +37,7 @@ public class ExamAttemptController {
         return examAttemptService.startExam(examId, userId);
     }
 
-    // Submit an answer for a question
+    // Submit an answer for a MCQs
     @PostMapping("/{examAttemptId}/submit-answer")
     public AttemptedQuestion submitAnswer(
             @PathVariable(name = "examAttemptId") int examAttemptId,
@@ -46,6 +46,14 @@ public class ExamAttemptController {
         return attemptedQuestionService.saveAttemptedQuestion(examAttemptId, questionId, selectedAnswer);
     }
     
+ // Submit an answer for a Programming question
+    @PostMapping("/{examAttemptId}/submit-code")
+    public AttemptedQuestion submitCode(
+            @PathVariable(name = "examAttemptId") int examAttemptId,
+            @RequestParam(name = "programmingQuestionId") int programmingQuestionId,
+            @RequestBody String code) {
+        return attemptedQuestionService.saveAttemptedProgrammingQuestion(examAttemptId, programmingQuestionId, code);
+    }
     
     //Finalize/Submit the exam
     @PostMapping("/{examAttemptId}/finalize")

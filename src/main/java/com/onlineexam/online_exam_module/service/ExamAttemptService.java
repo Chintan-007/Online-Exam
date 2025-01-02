@@ -6,6 +6,7 @@ import com.onlineexam.online_exam_module.dto.ExamSummaryDTO;
 import com.onlineexam.online_exam_module.model.AttemptedQuestion;
 import com.onlineexam.online_exam_module.model.Exam;
 import com.onlineexam.online_exam_module.model.ExamAttempt;
+import com.onlineexam.online_exam_module.model.ExamProgrammingQuestion;
 import com.onlineexam.online_exam_module.model.ExamQuestion;
 import com.onlineexam.online_exam_module.model.User;
 import com.onlineexam.online_exam_module.repository.AttemptedQuestionRepository;
@@ -70,9 +71,10 @@ public class ExamAttemptService {
 			
 			//Check if all questions have been attempted
 			List<ExamQuestion> examQuestions = examAttempt.getExam().getExamQuestions();
+			List<ExamProgrammingQuestion> examProgrammingQuestions = examAttempt.getExam().getExamProgrammingQuestions();
 			List<AttemptedQuestion> attemptedQuestions = attemptedQuestionRepository.findByExamAttempt(examAttempt);
 			
-			if(examQuestions.size() != attemptedQuestions.size()) {
+			if(examQuestions.size() + examProgrammingQuestions.size()  != attemptedQuestions.size()) {
 				throw new IllegalArgumentException("Not all questions have been attempted");
 			}
 			

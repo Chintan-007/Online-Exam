@@ -8,7 +8,6 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "exams")
@@ -33,9 +32,14 @@ public class Exam {
     
     @Column(nullable = false)
     private double passingPercentage;
-
+    
+    
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
-    @JsonManagedReference // Prevents infinite recursion
     private List<ExamQuestion> examQuestions;
+    
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
+    private List<ExamProgrammingQuestion> examProgrammingQuestions;
+
+
 }
 
