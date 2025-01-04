@@ -31,4 +31,14 @@ public class ProgrammingQuestionService {
 			programmingQuestionRepository.deleteById(id);
 			
 	}
+
+	public ProgrammingQuestion updateProgrammingQuestion(int id,ProgrammingQuestion updatedQuestion) {
+		
+		ProgrammingQuestion existingQuestion = getProgrammingQuestionById(id);
+    	existingQuestion.setQuestionText(updatedQuestion.getQuestionText());
+    	existingQuestion.setReferenceAnswer(updatedQuestion.getReferenceAnswer());
+    	existingQuestion.setDifficultyLevel(updatedQuestion.getDifficultyLevel());
+    	
+    	return programmingQuestionRepository.save(existingQuestion);
+	}
 }

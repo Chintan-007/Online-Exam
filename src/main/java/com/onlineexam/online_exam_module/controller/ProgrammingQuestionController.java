@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,13 @@ public class ProgrammingQuestionController {
 	@GetMapping("/{id}")
 	public ProgrammingQuestion getProgrammingQuestionById(@PathVariable(name="id") int id) {
 		return programmingQuestionService.getProgrammingQuestionById(id);
+	}
+	
+	
+	//update question by id
+	@PutMapping("/{id}")
+	public ProgrammingQuestion updateProgrammingQuestion(@PathVariable(name="id") int id,@RequestBody ProgrammingQuestion question) {
+		return programmingQuestionService.updateProgrammingQuestion(id,question);
 	}
 	
 	//delete question

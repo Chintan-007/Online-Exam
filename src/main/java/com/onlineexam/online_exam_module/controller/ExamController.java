@@ -17,7 +17,7 @@ public class ExamController {
 
     @PostMapping("/create")
     public Exam createExam(
-            @RequestParam("name") String name,
+            @RequestParam("examName") String examName,
             @RequestParam("createdBy") String createdBy,
             @RequestParam("duration") int duration,
             @RequestParam("logicalMcqCount") int logicalMcqCount,
@@ -25,7 +25,7 @@ public class ExamController {
             @RequestParam("programmingMcqCount") int programmingMcqCount,
             @RequestParam("programmingQuesCount") int programmingQuesCount,
             @RequestParam("passingPercentage") double passingPercentage) {
-        return examService.createExam(name, createdBy, duration, logicalMcqCount,technicalMcqCount,programmingMcqCount,programmingQuesCount,passingPercentage);
+        return examService.createExam(examName, createdBy, duration, logicalMcqCount,technicalMcqCount,programmingMcqCount,programmingQuesCount,passingPercentage);
     }
 
     

@@ -62,13 +62,6 @@ public class ExamAttemptController {
     }
     
     
-    //Get Result of exam
-    @GetMapping("/{examAttemptId}/result")
-    public ExamAttempt getResult(@PathVariable(name = "examAttemptId") int examAttemptId) {
-        return examAttemptService.getExamAttemptById(examAttemptId);
-    }
-    
-    
     //Get the summary of all the exams
     @GetMapping("/summary")
     public List<ExamSummaryDTO> getExamSummaries() {
