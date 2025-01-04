@@ -22,7 +22,7 @@ public class UserController {
     
     @PostMapping
     public User createUser(@RequestBody User user) {
-    	System.out.println("Received User: " + user);
+    	System.out.println("Received User: " + user); //For Debugging
         return userService.saveUser(user);
     }
 

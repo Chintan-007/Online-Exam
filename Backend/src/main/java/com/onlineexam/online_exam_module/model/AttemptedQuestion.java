@@ -21,14 +21,17 @@ public class AttemptedQuestion {
     private ExamAttempt examAttempt;
 
     @ManyToOne
-    @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
-
-    @Column(nullable = true)
-    private String selectedAnswer;
-
-    @Column(nullable = false)
-    private boolean isCorrect;
+    @JoinColumn(name = "question_id")
+    private Question mcqQuestion;
     
+    @ManyToOne
+    @JoinColumn(name = "programming_question_id")
+    private ProgrammingQuestion programmingQuestion;
+    
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String answer;
+
+    @Column
+    private boolean isCorrect;    
     
 }

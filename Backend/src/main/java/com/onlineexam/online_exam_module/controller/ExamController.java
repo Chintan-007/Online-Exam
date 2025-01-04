@@ -1,12 +1,12 @@
 package com.onlineexam.online_exam_module.controller;
 
+import com.onlineexam.online_exam_module.dto.ExamDTO;
 import com.onlineexam.online_exam_module.model.Exam;
 import com.onlineexam.online_exam_module.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/exams")
@@ -17,14 +17,15 @@ public class ExamController {
 
     @PostMapping("/create")
     public Exam createExam(
-            @RequestParam("name") String name,
+            @RequestParam("examName") String examName,
             @RequestParam("createdBy") String createdBy,
             @RequestParam("duration") int duration,
-            @RequestParam("logicalCount") int logicalCount,
-            @RequestParam("technicalCount") int technicalCount,
-            @RequestParam("programmingCount") int programmingCount,
+            @RequestParam("logicalMcqCount") int logicalMcqCount,
+            @RequestParam("technicalMcqCount") int technicalMcqCount,
+            @RequestParam("programmingMcqCount") int programmingMcqCount,
+            @RequestParam("programmingQuesCount") int programmingQuesCount,
             @RequestParam("passingPercentage") double passingPercentage) {
-        return examService.createExam(name, createdBy, duration, logicalCount,technicalCount,programmingCount,passingPercentage);
+        return examService.createExam(examName, createdBy, duration, logicalMcqCount,technicalMcqCount,programmingMcqCount,programmingQuesCount,passingPercentage);
     }
 
     
@@ -33,9 +34,9 @@ public class ExamController {
         return examService.getAllExams();
     }
 
-    @GetMapping("/{id}") 
-    public Optional<Exam> getExamById(@PathVariable(name="id") int id) {
-    	return examService.getExamById(id);
+    @GetMapping("/{id}")
+    public ExamDTO getExamById(@PathVariable(name = "id") int id) {
+        return examService.getExamDTOById(id);
     }
     
 }
