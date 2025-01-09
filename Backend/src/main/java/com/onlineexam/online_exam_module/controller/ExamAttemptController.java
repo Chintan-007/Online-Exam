@@ -38,7 +38,7 @@ public class ExamAttemptController {
     }
 
     // Submit an answer for a MCQs
-    @PostMapping("/{examAttemptId}/submit-answer")
+    @PostMapping("/{examAttemptId}/submit-mcq")
     public AttemptedQuestion submitAnswer(
             @PathVariable(name = "examAttemptId") int examAttemptId,
             @RequestParam(name = "questionId") int questionId,

@@ -54,7 +54,11 @@ public class StudentController {
 	//Delete a student
 	@DeleteMapping("/{id}")
 	public String deleteStudent(@PathVariable(name = "id") int id) {
-		studentService.deleteStudent(id);
+		try {
+			studentService.deleteStudent(id);
+		}catch(Exception e) {
+			return e.getMessage();
+		}
 		return "Student with id: "+id+" deleted sucessfully...!";
 	}
 }
